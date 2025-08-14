@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Presenze del {{ oggi }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 8px;
+      text-align: center;
+    }
+    .no-print {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Stile specifico per la stampa */
+    @media print {
+      .no-print {
+        display: none; /* Nasconde bottoni e link extra */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <button onclick="window.print()">Stampa questa pagina</button>
+    <a href="{% url 'entrata/' %}">Torna indietro</a>
+  </div>
+
+  <h2>Presenze del {{ oggi }}</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Squadra</th>
+        <th>Uscita Autonoma</th>
+        <th>Entrata</th>
+        <th>Uscita</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for animato in animati %}
+        <tr>
+          <td>{{ animato.nome }}</td>
+          <td>{{ animato.cognome }}</td>
+          <td>{{ animato.squadra }}</td>
+          <td>{{ animato.uscita_autonoma|yesno:"Sì,No" }}</td>
+          <td>
+            {% if animato.presenza %}
+              {{ animato.presenza.entrata|yesno:"Sì,No" }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>
+            {% if animato.presenza %}
+              {{ animato.presenza.uscita|yesno:"Sì,No" }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

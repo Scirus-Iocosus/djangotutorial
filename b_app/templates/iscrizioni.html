@@ -1,0 +1,167 @@
+{% load static %}
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grest di Barbano</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo2.jpg' %}">
+	{% block css %}
+    <link rel="stylesheet" href="{% static 'stile.css' %}">
+	{% endblock %}
+</head>
+
+<img src="{% static 'sfondo sito 3.jpg' %}" alt="sfondo mancato" class="no-print">
+<!-- Contenitore principale -->
+<div class="container">
+	<nav class="nav1">
+		<ul>
+			<li class="nav-item"><a id="home" class="a" href="/">Home</a></li>
+			<li class="nav-item"><a class="a" href="/info/">Informazioni</a></li>
+			<li class="nav-item"><a class="a active" href="/iscrizioni/">Iscrizioni</a></li>
+			<li class="nav-item"><a class="a" href="/login/" id="showFormBtn">Login</a></li>
+		</ul>
+	</nav>
+
+	<main id="main" class="content">
+		<h1>Iscrizione Animato</h1>
+		<p>Ogni iscrizione vale per un solo figlio. Per iscrivere un secondo figlio bisogna ricompilare tutto il form, riempiendo ogni volta tutti i campi richiesti</p>
+		<br><hr><hr><hr><br>
+
+        <form method="post" action="{% url 'iscrizioni' %}" enctype="multipart/form-data">
+
+			{% if form.errors %}
+				<ul class="errorlist">
+					{% for field in form %}
+						{% for error in field.errors %}
+							<li><strong>{{ field.name }}:</strong> {{ error }}</li>
+						{% endfor %}
+					{% endfor %}
+					{% for error in form.non_field_errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul><br>
+			{% endif %}
+
+            {% csrf_token %}
+
+			<h3>Settimana di Grest</h3>
+			<p>Padre</p>
+            <input type="text" name="padre" placeholder="Nome e cognome" class="form-control">
+
+			<p>Madre</p>
+			<input type="text" name="madre" placeholder="Nome e cognome" class="form-control">
+
+			<p>Tutore</p>
+			<input type="text" name="tutore" placeholder="Nome e cognome" class="form-control">
+
+			<p>Nome iscritto</p>
+			<input type="text" name="nome_figlio" placeholder="Nome" class="form-control">
+
+			<p>Cognome iscritto</p>
+			<input type="text" name="cognome_figlio" placeholder="Cognome" class="form-control">
+
+			<p>Data di nascita del figlio da iscrivere</p>
+			<input type="date" name="data_figlio" class="calendar">
+
+			<p>Luogo di nascita</p>
+			<input type="text" name="luogo_nascita" class="form-control">
+
+			<p>Residenza</p>
+			<input type="text" name="residenza" class="form-control">
+
+			<p>Hai altri figli da iscrivere? (segna la casella per rispondere sì)</p>
+			<input type="checkbox" name="fratelli">
+
+			<p>Primo recapito telefonico OBBLIGATORIO (indicare il prefisso)</p>
+			<input type="tel" name="telefono1"
+			pattern="^(\+39)?\s?3\d{2}\s?\d{6,7}$"
+			placeholder="+39 345 1234567"
+			class="phone-number">
+
+			<p>Secondo recapito telefonico opzionale (indicare il prefisso)</p>
+			<input type="tel" name="telefono2"
+			pattern="^(\+39)?\s?3\d{2}\s?\d{6,7}$"
+			placeholder="+39 345 1234567"
+			class="phone-number">
+
+			<p>Allergie alimentari o probemi fisici che possono riscontrarsi anche nell'ambiente del patronato</p>
+			<input type="text" name="allergie" class="form-control">
+
+			<p>Autorizzazione per foto e video (segna la casella per autorizzare)</p>
+			<input type="checkbox" name="foto">
+
+			<p>Autorizzazione per inserire le foto e i video a scopo pubblicitario su sito o social media (segna la casella per autorizzare)</p>
+			<input type="checkbox" name="sito">
+
+			<p>Autorizzi tuo figlio ad entrare/uscire in autonomia - o con eventuali fratelli più grandi già iscritti - (segna la casella per autorizzare)</p>
+			<input type="checkbox" name="uscita_autonoma">
+
+			<p>Io genitore/tutore/parente mi rendo disponibile per:</p>
+			{% for mansione in mansioni %}
+				<input type="checkbox" value="{{ mansione.id }}" class="exclusive" name="cucina">{{ mansione }}<br>
+			{% empty %}
+			<p style="text-align: center;"><br>Nessuna mansione richiesta</p><br><br>
+			{% endfor %}
+
+			<p>Nome e cognome e numero di telefono del genitore disponibile per pranzo/merenda (verrete contattati direttamente da noi poco prima del Grest)</p>
+			<input type="text" name="contatti" class="form-control">
+
+			<p>Note particolari</p>
+			<input type="text" name="note" class="form-control">
+
+			<br><br><hr><br><h3>Gita</h3>
+
+			<p>Partecipa alla gita?</p>
+			<input type="checkbox" name="gita"><br>
+
+			<p>Necessità</p>
+			<input type="text" name="necessita" class="form-control">
+
+			<br><br><hr><br><h3>Laboratori</h3>
+
+			<p>Andare in giro per fare i labboratori sul territorio?</p>
+			<input type="checkbox" name="laboratori"> Sì
+
+			<br><br><hr><br><h3>Pagamenti</h3>
+
+			<p>MODALITÀ DI PAGAMENTO: bonifico tramite iban IT43L0306909606100000193777 (BANCA PROSSIMA INTESA SAN PAOLO). Allegare ricevuta nello spazio sottostante ed effettuare bonifico unico sia per gita che per Grest. COSTO: 60,00 € GREST (riduzione 10€ su ulteriori fratelli) + 25,00 € GITA.    Pagamento: effettuare bonifico unico per Grest e gita (se non partecipi alla gita allega solo il pagamento del Grest)</p>
+			<input type="file" name="documento">
+
+			<p>Al fine di facilitare l'organizzazione dei pagamenti vi chiediamo di indicare cosa è stato pagato all'interno del bonifico.</p>
+			{% for pagamento in pagamenti %}
+				<input type="checkbox" value="{{ pagamento.id }}" class="exclusive2" name="pagamenti">{{ pagamento }}<br>
+			{% endfor %}
+
+            <br>
+			<button type="submit">Iscrivi</button>
+        </form>
+    </main>
+</div>
+</body>
+
+<script>
+    const checkboxes = document.querySelectorAll('.exclusive');
+    checkboxes.forEach((cb) => {
+		cb.addEventListener('change', () => {
+			if (cb.checked) {
+				checkboxes.forEach(other => {
+					if (other !== cb) other.checked = false;
+				});
+			}
+		});
+	});
+
+	const checkboxes2 = document.querySelectorAll('.exclusive2');
+    checkboxes2.forEach((cb) => {
+		cb.addEventListener('change', () => {
+			if (cb.checked) {
+				checkboxes2.forEach(other => {
+					if (other !== cb) other.checked = false;
+				});
+			}
+		});
+	});
+
+</script>
+</html>
+

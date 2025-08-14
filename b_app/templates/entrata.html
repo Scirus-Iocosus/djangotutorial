@@ -1,0 +1,168 @@
+{% extends 'appello.html' %}
+
+{% block navbar %}
+<nav class="nav1 no-print">
+    <ul>
+    <li class="nav-item"><a class="a" id="home" href="/home/">Home</a></li>
+    <li class="nav-item"><a class="a" href="/info2/">Informazioni</a></li>
+    <li class="nav-item"><a class="a" href="/iscritti/">Iscrizioni</a></li>
+    <li class="nav-item"><a class="a" href="/">Logout</a></li>
+    <li class="dropdown dropbtn active">Accoglienza
+        <div class="dropdown-content">
+            <a href="/appello/squadra/">Squadra</a>
+            <a href="/appello/entrata/">Gestione Presenze</a>
+        </div>
+    </li>
+    <li class="nav-item"><a class="a" href="/classifica/">Classifica</a></li>
+		<li class="nav-item"><a class="a" href="/files/">Documenti</a></li>
+    <li class="nav-item"><a class="a" href="/admin/">Admin</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block main %}
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<main id="main" class="content">
+  <h1>Presenze del {{ today }}</h1>
+  <div class="toolbar no-print">
+    <input type="text" id="searchInput" placeholder="Cerca animato...">
+    <select id="sortSelect">
+      <option value="cognome">Ordina per Cognome</option>
+      <option value="nome">Ordina per Nome</option>
+      <option value="squadra">Ordina per Squadra</option>
+    </select>
+    <a class="stampa" href="#" onclick="window.print()">🖨 Stampa / Salva PDF</a>
+    <button type="back" onclick=mostraConferma()>Cancella presenze registrate</button>
+  </div>
+
+  {% csrf_token %}
+  <div id="overflown">
+    <table id="animatiTable">
+      <thead>
+        <tr>
+          <th>Cognome</th>
+          <th>Nome</th>
+          <th>Squadra</th>
+          <th>Entrata</th>
+          <th>Uscita Autonoma</th>
+          <th>Uscita</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for animato in animati %}
+          <tr>
+            <td>{{ animato.cognome_figlio }}</td>
+            <td>{{ animato.nome_figlio }}</td>
+            <td>{{ animato.squadra|default_if_none:"" }}</td>
+            <td>
+              <input type="checkbox"
+                name="entrata_{{ animato.id }}"
+                {% if animato.presenza and animato.presenza.entrata %}
+                  checked
+                {% endif %}>
+            </td>
+            <td>{{ animato.uscita_autonoma|yesno:"Sì,No" }}</td>
+            <td>
+              <input type="checkbox"
+                    name="uscita_{{ animato.id }}"
+                    {% if animato.presenza and animato.presenza.uscita %}
+                      checked
+                    {% endif %}>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="6">Nessun animato registrato</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const csrfToken = '{{ csrf_token }}';
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const formData = new FormData();
+        formData.append(cb.name, cb.checked);
+
+        fetch("{% url 'salva_presenze' %}", {
+          method: 'POST',
+          headers: {'X-CSRFToken': csrfToken},
+          body: formData
+        }).then(res => res.json())
+          .then(data => console.log('Salvato:', data));
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const sortSelect = document.getElementById('sortSelect');
+      const table = document.getElementById('animatiTable');
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+      // 🔍 Filtro di ricerca
+      searchInput.addEventListener('keyup', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+      });
+
+      // 🔃 Ordinamento
+      sortSelect.addEventListener('change', function() {
+        const criteria = sortSelect.value;
+        const columnIndex = { cognome: 0, nome: 1, squadra: 2 }[criteria];
+
+        const sortedRows = rows
+          .filter(row => row.style.display !== 'none') // ordina solo quelli visibili
+          .sort((a, b) => {
+            const textA = a.cells[columnIndex].textContent.trim().toLowerCase();
+            const textB = b.cells[columnIndex].textContent.trim().toLowerCase();
+            return textA.localeCompare(textB);
+          });
+
+        const tbody = table.querySelector('tbody');
+        sortedRows.forEach(row => tbody.appendChild(row));
+      });
+    });
+
+    // MOSTRA BANNER DI CONFERMA
+    function mostraConferma() {
+      Swal.fire({
+        title: 'Sei sicuro?',
+        text: "Tutte le presenze saranno eliminate!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sì, elimina!',
+        cancelButtonText: 'Annulla'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          cancellaPresenze(); // chiamata alla tua funzione
+        }
+      });
+    }
+
+    // CANCELLA PRESENZE
+    function cancellaPresenze() {
+      fetch("{% url 'cancella_presenze' %}", {
+        method: "POST",
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        location.reload();  // aggiorna la pagina per riflettere i cambiamenti
+        if (data.status === 'ok') {} else {
+          alert("Errore durante la cancellazione.");
+        }
+      });
+    }
+  </script>
+</main>
+{% endblock %}

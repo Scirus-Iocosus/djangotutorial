@@ -1,0 +1,107 @@
+{% extends 'home2.html' %}
+{% load static %}
+
+{% block navbar %}
+<nav class="nav1">
+    <ul>
+        <li class="nav-item"><a class="a" id="home" href="/home/">Home</a></li>
+        <li class="nav-item"><a class="a" href="/info2/">Informazioni</a></li>
+        <li class="nav-item"><a class="a" href="/iscritti/">Iscrizioni</a></li>
+        <li class="nav-item"><a class="a" href="/login">Logout</a></li>
+        <li class="dropdown dropbtn">Appello
+        <div class="dropdown-content">
+            <a href="/appello/squadra/">Squadra</a>
+            <a href="/appello/entrata/">Gestione Presenze</a>
+        </div>
+        </li>
+        <li class="nav-item"><a class="a active" href="/classifica/">Classifica</a></li>
+		<li class="nav-item"><a class="a" href="/files/">Documenti</a></li>
+        <li class="nav-item"><a class="a" href="/admin/">Admin</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block main %}
+<main id="main" class="content">
+    <h1>CLASSIFICA</h1>
+
+    <h2>Podio</h2>
+    <div class="tabella">
+        <table class="podio">
+            <tr>
+                <th class="bordo"></th>
+                <th class="bordo"></th>
+                <th class="nome-squadra" id="first">1</th>
+                <th class="bordo"></th>
+            </tr>
+            <tr>
+                <th class="bordo"></th>
+                <th class="nome-squadra" id="second">2</th>
+                <th class="primo"></th>
+                <th class="bordo"></th>
+            </tr>
+            <tr>
+                <th class="bordo"></th>
+                <th class="secondo"></th>
+                <th class="primo"></th>
+                <th class="nome-squadra" id="third">3</th>
+            </tr>
+            <tr>
+                <th class="nome-squadra" id="fourth">4</th>
+                <th class="secondo"></th>
+                <th class="primo"></th>
+                <th class="terzo"></th>
+            </tr>
+            <tr>
+                <th class="quarto cella"></th>
+                <th class="secondo cella"></th>
+                <th class="primo cella"></th>
+                <th class="terzo cella"></th>
+            </tr>
+            <tr id="punteggio">
+                <th class="bordo quarto1">Punteggio</th>
+                <th class="bordo secondo1">Punteggio</th>
+                <th class="bordo primo1">Punteggio</th>
+                <th class="bordo terzo1">Punteggio</th>
+            </tr>
+        </table>
+    </div>
+
+    <h1>Leaderboard</h1>
+    <div id="leaderboard">
+        <div id="Rossi">
+            <h2>Rossi</h2>
+            <svg height="20" width="100%">
+                <line id="redscore" x1="0" x2="0" style="stroke:red;stroke-width:20" />
+            </svg>
+            <p>Punteggio totale rossi: <span id="punteggi-rossi">0</span></p>
+        </div>
+
+        <div id="Verdi">
+            <h2>Verdi</h2>
+            <svg height="20" width="100%">
+                <line id="greenscore" x1="0" x2="0" style="stroke:green;stroke-width:20" />
+            </svg>
+            <p>Punteggio totale verdi <span id="punteggi-verdi">0</span></p>
+        </div>
+
+        <div id="Gialli">
+            <h2>Gialli</h2>
+            <svg height="20" width="100%">
+                <line id="yellowscore" x1="0" x2="0" style="stroke:yellow;stroke-width:20" />
+            </svg>
+            <p>Punteggio totale gialli: <span id="punteggi-gialli">0</span></p>
+        </div>
+
+        <div id="Blu">
+            <h2>Blu</h2>
+            <svg height="20" width="100%">
+                <line id="bluescore" x1="0" x2="0" style="stroke:blue;stroke-width:20" />
+            </svg>
+            <p>Punteggio totale blu <span id="punteggi-blu">0</span></p>
+        </div>
+    </div>
+
+    <script src="{% static 'leaderboard.js' %}"></script>
+</main>
+{% endblock %}

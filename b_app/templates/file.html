@@ -1,0 +1,66 @@
+{% extends 'home2.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'file.css' %}" media="screen">
+{% endblock %}
+{% block navbar %}
+    <nav class="nav1">
+        <ul>
+            <li class="nav-item"><a class="a" id="home" href="/home/">Home</a></li>
+            <li class="nav-item"><a class="a" href="/info2/">Informazioni</a></li>
+            <li class="nav-item"><a class="a" href="/iscritti/">Iscrizioni</a></li>
+            <li class="nav-item"><a class="a" href="/">Logout</a></li>
+            <li class="dropdown dropbtn">Appello
+                <div class="dropdown-content">
+                    <a href="/appello/squadra/">Squadra</a>
+                    <a href="/appello/entrata/">Gestione presenze</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="a" href="/classifica/">Classifica</a></li>
+            <li class="nav-item"><a class="a active" href="/files/">Documenti</a></li>
+            <li class="nav-item"><a class="a" href="/admin/">Admin</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+<!-- INFOPAGE -->
+{% block main %}
+<main id="main" class="content">
+    <form method="post" enctype="multipart/form-data" class="carica-file">
+    <h2>CARICA UN FILE</h2>
+
+        {% csrf_token %}
+
+        <p>Nome file</p>
+        <input type="text" name="Nome" placeholder="Titolo documento">
+
+        <div class="file-upload">
+            <label for="file-input" class="custom-file-label">
+                📎 Seleziona documento
+            </label>
+            <input type="file" name="Documento" id="file-input" class="file-input">
+            <p id="file-name"></p>
+        </div>
+
+        <button type="submit" href="/files/">Carica</button>
+    </form>
+
+    <h2 id="titolo">SCARICA UN FILE</h2>
+    <div class="big-chungus">
+        {% for documento in documenti %}
+        <a href="{{ documento.Documento.url }}" target="_blank" class="color">
+            <div class="contenitore">
+                <img src="{% static 'icona file.jpg' %}" class="fileicon">
+                <p class="texticon">{{ documento.Nome }}</p>
+            </div>
+        </a>
+        {% empty %}
+        <a class="color">
+            <div class="contenitore">
+                <img src="{% static 'icona file2.jpg' %}" class="fileicon">
+                <p class="texticon">NESSUN FILE PRESENTE</p>
+            </div>
+        </a>
+        {% endfor %}
+</main>
+{% endblock %}

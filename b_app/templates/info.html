@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+    {%block navbar %}
+    <nav class="nav1">
+      <ul>
+        <li class="nav-item"><a id="home" class="a" href="/">Home</a></li>
+        <li class="nav-item"><a class="a active" href="/info/">Informazioni</a></li>
+        <li class="nav-item"><a class="a" href="/iscrizioni/">Iscrizioni</a></li>
+        <li class="nav-item"><a class="a" href="/login/" id="showFormBtn">Login</a></li>
+      </ul>
+    </nav>
+    {% endblock %}
+
+
+    <!-- INFOPAGE -->
+    {% block main %}
+    <main id="main" class="content">
+      <div id="infopage">
+        <h1>Informazioni</h1>
+        <h2 class="big2">Quando e dove trovarci?</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.4839266605422!2d11.686595711537137!3d45.48019893225084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477f28c6ad01eaff%3A0x1874887315b99519!2sVia%20Vittorio%20Veneto%2C%2081%2C%2036040%20Grisignano%20di%20Zocco%20VI!5e0!3m2!1sit!2sit!4v1739529876291!5m2!1sit!2sit" width= 100% ; height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p class="big"><br>Vi aspettiamo numerosissimi nella settimana che va da Lunedì 25 Agosto a Venerdì 29.</p>
+        <h1><br>Contatti</h1>
+        <ul class="big">
+          <li>Email: <a class="mail" href="mailto:infogrestbarbano@gmail.com">infogrestbarbano@gmail.com</a></li>
+          <li>Matts <a class="mail" href="tel:393892144154">389 214 4154</a></li>
+          <li>Don Vittorio: <a class="mail" href="tel:393471303800">347 130 3800</a></li>
+        </ul>
+        <h1>Programma</h1>
+        <h2>Download utili:</h2><br>
+        <div style="border: 1px solid black; padding: 10px; line-height: 2">
+          {% for documento in documenti %}
+          <h3 class="big"><a class="mail" href="{{ documento.Documento.url }}" target="_blank">Schiaccia qui per scaricare: {{ documento.Nome }} [PDF]</a></h3>
+          {% empty %}
+          <p style="text-align: center">NESSUN FILE DISPONIBILE</p>
+          {% endfor %}
+        </div><br>
+        <p class="big">Le giornate saranno strutturate nel seguente modo:<br>l'accoglienza va dalle 7:45 alle 8:30, mentre la giornata si conclude alle 17:30.</p>
+        <p class="big">&Egrave prevista una gita in giornata (seguirà gli orari normali) presso il parco faunistico del Matts.</p>
+        <h4 class="big">Novità</h4>
+        <p>Da quest'anno i laboratori pomeridiani non saranno solo in patronato, ma saranno attività interattive nel territorio circostante all'oratorio parrocchiale</p>
+      </div>
+    </main>
+    {% endblock %}

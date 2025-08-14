@@ -1,0 +1,34 @@
+{% load static %}
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grest di Barbano</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo2.jpg' %}">
+    <link rel="stylesheet" href="{% static 'stile.css' %}">
+</head>
+
+<img src="{% static 'sfondo sito 3.jpg' %}" alt="sfondo mancato" class="no-print">
+<!-- Contenitore principale -->
+<div class="container">
+	<nav class="nav1">
+		<ul>
+			<li class="nav-item"><a id="home" class="a" href="/">Home</a></li>
+			<li class="nav-item"><a class="a" href="/info/">Informazioni</a></li>
+			<li class="nav-item"><a class="a active" href="/iscrizioni/">Iscrizioni</a></li>
+			<li class="nav-item"><a class="a" href="/login/" id="showFormBtn">Login</a></li>
+		</ul>
+	</nav>
+
+	<main id="main" class="content">
+		<h1>Iscrizione Animato</h1>
+		<p>Ogni iscrizione vale per un solo figlio. Per iscrivere un secondo figlio bisogna ricompilare tutto il form, riempiendo ogni volta tutti i campi richiesti</p>
+		<br><hr><br>
+		<p class="green">Iscrizione effettuata con successo</p>
+        <button type="back"><a class="mail" href="/">Go back to the homepage</a></button>
+        <button type="submit"><a class="mail" href="/iscrizioni/">Iscrivi un altro figlio</a></button>
+	</main>
+</div>
+</body>
+</html>
+

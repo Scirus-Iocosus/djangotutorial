@@ -1,0 +1,329 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1,5;
+}
+img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: 100% 40%;
+}
+.mail{
+    color: #000000;
+    text-decoration: none;
+}
+.mail a, a:hover, a:active {
+    color: black;
+    text-decoration: underline;
+}
+[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.toolbar {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.toolbar input, .toolbar select {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* Layout principale */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Navbar laterale - verticale su desktop, orizzontale su mobile */
+.nav1 ul {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    width: 100%;
+    padding: 10px 0;
+    overflow: auto;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0vh;
+}
+.nav1 li {
+    width: 100%;
+    text-align: center;
+}
+.nav1 li a.a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+li.dropdown {
+    display: inline-block;
+    position: static;
+}
+.dropdown {
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.dropbtn {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.nav1 a:hover, .dropdown:hover {
+    background-color: grey;
+    color: black;
+}
+
+/* Stile per il link attivo */
+.nav1 a.active, li.active {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    color: black;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color:rgba(0, 0, 0, 0.06);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    text-align: justify;
+    line-height: 1,5;
+}
+
+h1 {
+    padding-bottom: 10px;
+}
+h2.big2 {
+    padding-top: 40px;
+    padding-bottom: 10px;
+}
+h4.big {
+    line-height: 2;
+    padding-top: 10px;
+}
+p.big {
+    line-height: 2;
+}
+ul.big {
+    list-style-type: none;
+    padding-left: 20px;
+    background-color: transparent;
+}
+ul.big li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+ul.big li::before {
+    content: "• ";
+    color: #000000;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    overflow: auto;
+    white-space: nowrap;
+} 
+td, th {
+    border: 1px solid #000000;
+    text-align: center;
+    padding: 8px;
+    height: auto;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+tr:nth-child(odd) {
+    background-color: #85858533;
+}
+#overflown {
+    width: 100%;
+    overflow-x: auto;
+}
+.content,
+.container {
+    min-width: 0;
+}
+.tabs {
+    overflow: auto;
+}
+#iscrittiTable {
+    width: auto;
+}
+.elemento {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.elemento::-webkit-scrollbar {
+    display: none;
+}
+
+/* ✅ Media Query Desktop */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
+    .nav1 {
+        width: 200px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+    .nav1 ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav1 a.a {
+        text-align: center;
+        padding-left: 20px;
+        width: 100%;
+    }
+    .content {
+        width: calc(100% - 200px);
+    }
+    .dropdown-content {
+        position: absolute;
+        width: 100%;
+        left: 0;
+    }
+    .toolbar {
+        display: flex;
+    }
+    .toolbar input,
+    .toolbar select {
+        width: 40%;
+    }
+}
+
+/* ✅ Media Query Mobile */
+@media (max-width: 768px) {
+    .toolbar {
+        display: grid;
+    }
+    .toolbar input,
+    .toolbar select {
+        width: 100%;
+    }
+    .content {
+        overflow: auto;
+    }
+    .nav1 {
+        flex-direction: row;
+        min-width: 100%;
+    }
+    .nav1 ul {
+        flex-direction: row;
+        justify-content: space-around;
+        display: flex;
+    }
+    .dropdown-content {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 260px;
+        z-index: 0;
+    }
+    .tabella {
+        display: flex;
+        overflow: auto;
+        width: auto;
+    }
+    td,
+    th {
+        width: auto;
+        overflow: visible;
+    }
+    .toolbar {
+        display: grid;
+    }
+    .toolbar input,
+    .toolbar select {
+        width: 100%;
+    }
+    .content {
+        overflow: auto;
+    }
+    .nav1 {
+        flex-direction: row;
+        min-width: 100%;
+    }
+    .nav1 ul {
+        flex-direction: row;
+        justify-content: space-around;
+        display: flex;
+    }
+    .dropdown-content {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 260px;
+        z-index: 0;
+    }
+    .tabella {
+        display: flex;
+        overflow: auto;
+        width: auto;
+    }
+    td,
+    th {
+        width: auto;
+        overflow: visible;
+    }
+}

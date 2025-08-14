@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<nav class="nav1">
+    <ul>
+      <li class="nav-item"><a id="home" onclick=home() class="a" href="/">Home</a></li>
+      <li class="nav-item"><a onclick=info() class="a" href="/info/">Informazioni</a></li>
+      <li class="nav-item"><a onclick=iscrizioni() class="a" href="/iscrizioni/">Iscrizioni</a></li>
+      <li class="nav-item"><a class="a active" href="/login/">Login</a></li>
+    </ul>
+  </nav>
+{% endblock %}
+
+{% block main %}
+<main id="main" class="content">
+  <h2>Login</h2>
+  <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit">Login</button>
+      <button type="back" href="/">Go back to the homepage</button>
+  </form>
+  {% if messages %}
+      {% for message in messages %}
+          <p>{{ message }}</p>
+      {% endfor %}
+  {% endif %}
+</main>
+{% endblock %}

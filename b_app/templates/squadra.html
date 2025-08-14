@@ -1,0 +1,32 @@
+{% extends 'appello.html' %}
+
+    {% block navbar %}
+    <nav class="nav1">
+        <ul>
+        <li class="nav-item"><a class="a" id="home" href="/home/">Home</a></li>
+        <li class="nav-item"><a class="a" href="/info2/">Informazioni</a></li>
+        <li class="nav-item"><a class="a" href="/iscritti/">Iscrizioni</a></li>
+        <li class="nav-item"><a class="a" href="/">Logout</a></li>
+        <li class="dropdown dropbtn active">Squadra
+            <div class="dropdown-content">
+                <a href="/appello/squadra/">Squadra</a>
+                <a href="/appello/entrata/">Gestione Presenze</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class="a" href="/classifica/">Classifica</a></li>
+		<li class="nav-item"><a class="a" href="/files/">Documenti</a></li>
+        <li class="nav-item"><a class="a" href="/admin/">Admin</a></li>
+        </ul>
+    </nav>
+    {% endblock %}
+
+    {% block main %}
+    <main id="main" class="content">
+        <div id="main-div">
+            <a href="/appello/squadra/blu" class="section blue">BLU</a>
+            <a href="/appello/squadra/gialli" class="section yellow">GIALLI</a>
+            <a href="/appello/squadra/rossi" class="section red">ROSSI</a>
+            <a href="/appello/squadra/verdi" class="section green">VERDI</a>
+        </div>
+    </main>
+    {% endblock %}

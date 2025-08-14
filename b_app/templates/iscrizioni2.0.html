@@ -1,0 +1,72 @@
+{% load static %}
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grest di Barbano</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo2.jpg' %}">
+	{% block css %}
+    <link rel="stylesheet" href="{% static 'stile.css' %}">
+	{% endblock %}
+</head>
+
+<img src="{% static 'sfondo sito 3.jpg' %}" alt="sfondo mancato" class="no-print">
+<!-- Contenitore principale -->
+<div class="container">
+	<nav class="nav1">
+		<ul>
+			<li class="nav-item"><a id="home" class="a" href="/">Home</a></li>
+			<li class="nav-item"><a class="a" href="/info/">Informazioni</a></li>
+			<li class="nav-item"><a class="a active" href="/iscrizioni/">Iscrizioni</a></li>
+			<li class="nav-item"><a class="a" href="/login/" id="showFormBtn">Login</a></li>
+		</ul>
+	</nav>
+
+	<main id="main" class="content">
+		<h1>Iscrizione Animato</h1>
+		<p>Ogni iscrizione vale per un solo figlio. Per iscrivere un secondo figlio bisogna ricompilare tutto il form, riempiendo ogni volta tutti i campi richiesti</p>
+		<br><hr><br>
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Iscrivi</button>
+		</form>
+	</main>
+</div>
+</body>
+<script>
+    const checkboxes = document.querySelectorAll('.exclusive');
+    checkboxes.forEach((cb) => {
+		cb.addEventListener('change', () => {
+			if (cb.checked) {
+				checkboxes.forEach(other => {
+					if (other !== cb) other.checked = false;
+				});
+			}
+		});
+	});
+
+	const checkboxes2 = document.querySelectorAll('.exclusive2');
+    checkboxes2.forEach((cb) => {
+		cb.addEventListener('change', () => {
+			if (cb.checked) {
+				checkboxes2.forEach(other => {
+					if (other !== cb) other.checked = false;
+				});
+			}
+		});
+	});
+
+	const input = document.getElementById("campo");
+	const placeholder = input.placeholder;
+
+	input.addEventListener("input", () => {
+		if (input.value === "") {
+			input.placeholder = placeholder;
+		} else {
+			input.placeholder = "";
+		}
+	});
+</script>
+</html>
+

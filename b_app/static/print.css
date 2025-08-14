@@ -1,0 +1,61 @@
+/* static/css/print.css */
+@media print {
+    .no-print, nav, footer {
+        display: none !important;
+    }
+    table {
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+}
+
+/* Nascondi elementi non stampabili */
+.no-print {
+    display: none !important;
+}
+img {
+    display: none;
+}
+.nav {
+    display: none;
+}
+/* Imposta margini per la stampa */
+@page {
+    margin: 20mm;
+}
+
+/* Stile tabella per stampa */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12pt;
+}
+
+th, td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+/* Rimuovi colori di sfondo troppo scuri */
+body {
+    color: #000;
+    background: #fff;
+}
+
+/* Evita interruzioni di pagina strane */
+tr, td, th {
+    page-break-inside: avoid;
+}

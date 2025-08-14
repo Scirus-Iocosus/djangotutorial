@@ -1,0 +1,78 @@
+{% extends 'squadra.html' %}
+
+    {% block navbar %}
+    <nav class="nav1">
+        <ul>
+        <li class="nav-item"><a class="a" id="home" href="/home/">Home</a></li>
+        <li class="nav-item"><a class="a" href="/info2/">Informazioni</a></li>
+        <li class="nav-item"><a class="a" href="/iscritti/">Iscrizioni</a></li>
+        <li class="nav-item"><a class="a" href="/">Logout</a></li>
+        <li class="dropdown dropbtn active">Squadra
+            <div class="dropdown-content">
+                <a href="/appello/squadra/">Squadra</a>
+                <a href="/appello/entrata/">Gestione Presenze</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class="a" href="/classifica/">Classifica</a></li>
+		<li class="nav-item"><a class="a" href="/files/">Documenti</a></li>
+        <li class="nav-item"><a class="a" href="/admin/">Admin</a></li>
+        </ul>
+    </nav>
+    {% endblock %}
+
+    {% block main %}
+    <main id="main" class="content">
+        <h1>Elenco Animati - {{ oggi }}</h1>
+        <h2>Squadra: GIALLI</h2><br>
+
+        <div style="display: flex; gap: 10px">
+            <h3>Mostra animati che vengono in gita</h3>
+            <input type="checkbox" onchange="filtraPerValore('squadra', 4, 'Sì', this.checked)">
+        </div><br>
+
+        <table id="squadra">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(this)">Cognome</th>
+                    <th onclick="sortTable(this)">Nome</th>
+                    <th onclick="sortTable(this)">Età</th>
+                    <th onclick="sortTable(this)">Anno di nascita</th>
+                    <th>Gita</th>
+                    <th>Laboratori</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for iscritto in iscritti %}
+                    <tr>
+                        <td>{{ iscritto.cognome_figlio }}</td>
+                        <td>{{ iscritto.nome_figlio }}</td>
+                        <td>{{ iscritto.eta }}</td>
+                        <td>{{ iscritto.data_figlio }}</td>
+                        <td>{{ iscritto.gita|yesno:"Sì,No" }}</td>
+                        <td>{{ iscritto.laboratori|yesno:"Sì,No" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6">Nessun animato.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+    function filtraPerValore(idTabella, colIndex, valoreAtteso, mostraSoloSeCorretto) {
+        const tabella = document.getElementById(idTabella);
+        const righe = tabella.getElementsByTagName("tbody")[0].rows;
+
+        for (let riga of righe) {
+            const contenuto = riga.cells[colIndex].textContent.trim();
+
+            const corrisponde = contenuto === valoreAtteso;
+
+            // Se vogliamo mostrare solo chi corrisponde, nascondiamo gli altri
+            riga.style.display = (mostraSoloSeCorretto && !corrisponde) ? "none" : "";
+        }
+    }
+    </script>
+
+
+    {% endblock %}

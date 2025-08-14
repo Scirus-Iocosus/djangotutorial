@@ -1,0 +1,63 @@
+{% load static %}
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grest di Barbano</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo2.jpg' %}">
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'print.css' %}" media="print">
+    {% endblock %}
+</head>
+<body>
+<!-- Immagine in alto -->
+<img src="{% static 'sfondo sito 3.jpg' %}" alt="sfondo mancato" class="no-print">
+<!-- Contenitore principale -->
+<div class="container">
+  <!-- Navbar laterale -->
+  {% block navbar %}
+  <nav class="nav1 no-print">
+    <ul>
+      <li class="nav-item"><a id="home" onclick=home() class="a active" href="/">Home</a></li>
+      <li class="nav-item"><a onclick=info() class="a" href="info/">Informazioni</a></li>
+      <li class="nav-item"><a onclick=iscrizioni() class="a" href="iscrizioni/">Iscrizioni</a></li>
+      <li class="nav-item"><a class="a" href="/login/">Login</a></li>
+    </ul>
+  </nav>
+  {% endblock %}
+
+  {% block login %}
+  {% endblock %}
+
+  {% block main %}
+  <main id="main" class="content">
+    <div id="homepage">
+      <h1>Benvenuto</h1>
+      <p class="big">Torna il <strong>Grest di Barbano!</strong> Preparatevi per un’estate da ricordare!</p>
+      <h2 class="big2">Ripartiamo col botto</h2>
+      <p class="big">Dopo molti anni di attesa, l'estate 2024 ha segnato il grande ritorno del Grest di Barbano! Ora siamo pronti a regalarvi un'altra settimana indimenticabile, piena di allegria, giochi, avventure e sorrisi!</p>
+      <h2 class="big2">Perché scegliere il Grest di Barbano?</h2>
+      <ul class="big">
+        <li>🌞 <strong>Un’esperienza da vivere insieme</strong>: Il nostro Grest è un’occasione unica per far vivere ai vostri figli un’estate all’insegna della condivisione e del divertimento.</li>
+        <li>🎨 <strong>Attività entusiasmanti</strong>: Laboratori creativi, sport, giochi di squadra, escursioni e tanto altro per stimolare la fantasia e lo spirito di gruppo.</li>
+        <li>🤝 <strong>Amicizie che durano</strong>: Il Grest è il luogo perfetto per stringere nuove amicizie e vivere momenti che rimarranno nel cuore.</li>
+        <li>👫 <strong>Un ambiente sicuro e accogliente</strong>: Animatori preparati e appassionati garantiscono un’esperienza coinvolgente.</li>
+      </ul>
+      <h2 class="big2">Chi può partecipare?</h2>
+      <p class="big">Il Grest di Barbano è aperto a bambini e ragazzi dall'ultimo anno di scuola materna alla terza media. Un’esperienza su misura per ogni età, con programmi pensati per soddisfare curiosità e voglia di avventura.</p>
+      <h2 class="big2">Quando e dove?</h2>
+      <ul class="big">
+        <li>📅 <strong>Date:</strong> Dal 25 al 29 Agosto 2025</li>
+        <li>📍<strong>Luogo:</strong> Il patronato di Barbano, un luogo familiare e accogliente, con spazi ampi e diverse zone per giocare.</li>
+      </ul>
+      <h2 class="big2">Come iscriversi?</h2>
+      <p>Online, nella sezione dedicata di questo sito</p>
+    </div>
+  </main>
+  {% endblock %}
+</div>
+{% block squadra %}
+{% endblock %}
+</body>
+</html>
